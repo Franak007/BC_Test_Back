@@ -1,3 +1,7 @@
+stages:
+  - build
+  - deploy
+
 build de la partie back:
   image: pockost/php:8.2-apache-bookworm
   stage: build
