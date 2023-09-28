@@ -1,0 +1,37 @@
+build de la partie back:
+  image: pockost/php:8.2-apache-bookworm
+  stage: build
+  script:
+    - composer install --no-scripts --no-dev --optimize-autoloader --no-interaction
+    - php bin/console assets:install --env=prod
+  only:
+    changes:
+      - composer.json
+      - composer.lock
+  artifacts:
+    paths:
+      - vendor
+      - public/bundles
+
+deploiement de la partie back avec les vendor:
+  image: pockost/phploy:4.9.3
+  stage: deploy
+  only:
+    changes:
+      - composer.json
+      - composer.lock
+  script:
+    - phploy -s back-prod-with-vendor
+
+deploiement de la partie back sans les vendor:
+  image: pockost/phploy:4.9.3
+  stage: deploy
+  only:
+    changes:
+      - bc-test/**/*
+  except:
+    changes:
+      - composer.json
+      - composer.lock
+  script:
+    - phploy -s back-prod-without-vendor
