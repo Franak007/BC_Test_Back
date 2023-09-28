@@ -18,7 +18,9 @@ build de la partie back:
       - public/bundles
 
 deploiement de la partie back avec les vendor:
-  image: pockost/phploy:4.9.3
+  image:
+    name: pockost/phploy:4.9.3
+    entrypoint: [""]
   stage: deploy
   only:
     changes:
@@ -28,11 +30,11 @@ deploiement de la partie back avec les vendor:
     - phploy -s back-prod-with-vendor
 
 deploiement de la partie back sans les vendor:
-  image: pockost/phploy:4.9.3
+  image:
+    name: pockost/phploy:4.9.3
+    entrypoint: [""]
   stage: deploy
-  only:
-    changes:
-      - bc-test/**/*
+
   except:
     changes:
       - composer.json
