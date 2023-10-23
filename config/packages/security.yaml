@@ -3,6 +3,7 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -14,7 +15,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         login:
             pattern: ^/api/login
             stateless: true
@@ -54,6 +54,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/users, roles: PUBLIC_ACCESS }
+         - { path: ^/users/register, role: PUBLIC_ACCESS}
+#         - { path: ^/users/new, roles: NO_ROLE_DEFINED }
 
 when@test:
     security:
