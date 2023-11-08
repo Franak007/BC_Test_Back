@@ -26,6 +26,7 @@ security:
         api:
             pattern: ^/api
             stateless: true
+            provider: app_user_provider
             jwt: ~
 
         main:
@@ -54,6 +55,7 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/users/whoami, roles: ROLE_USER }
          - { path: ^/users, roles: PUBLIC_ACCESS }
          - { path: ^/users/register, role: PUBLIC_ACCESS}
 #         - { path: ^/users/new, roles: NO_ROLE_DEFINED }
